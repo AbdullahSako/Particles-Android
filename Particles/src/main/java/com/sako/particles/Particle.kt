@@ -1,4 +1,4 @@
-package com.sako.sparkletest
+package com.sako.particles
 
 import android.graphics.Paint
 import kotlin.math.max
@@ -10,48 +10,28 @@ data class Particle(
     var y: Float,
     var xVelocity: Float,
     var yVelocity: Float,
+    val maxVelocity: Float,
     var acceleration: Float,
+    val maxAccel: Float,
     val size: Float,
     var alpha: Float,
     var alphaChangeValue: Float,
     val paint: Paint
 ) {
 
-
+    /**
+     * Move the particle based on its velocity and acceleration
+     *
+     *  @param viewWidth Canvas view width
+     *  @param viewHeight Canvas view height
+     * */
     fun move(viewWidth: Int, viewHeight: Int) {
 
-        //normalize x-velocity overtime in case of acceleration change
-        if (xVelocity > 0.5f) {
-            xVelocity -= 0.05f
-        } else if (xVelocity < -0.5f) {
-            xVelocity += 0.05f
-        }
+        normalizeVelocity()
 
-        //normalize y-velocity overtime in case of acceleration change
-        if (yVelocity > 0.5f) {
-            yVelocity -= 0.05f
-        } else if (yVelocity < -0.5f) {
-            yVelocity += 0.05f
-        }
+        changeDirectionIfOutOfBounds(viewWidth, viewHeight)
 
-        //if the particle reached the left edge or the right edge of the view, reverse the velocity
-        if (x + xVelocity > viewWidth || x + xVelocity < 0) {
-            xVelocity *= -1
-        }
-
-        //if the particle reached the top edge or the bottom edge of the view, reverse the velocity
-        if (y + yVelocity > viewHeight || y + yVelocity < 0) {
-            yVelocity *= -1
-        }
-
-        //if the alpha is 1 or 0, reverse the alphaChangeValue so the particle keeps fading/appearing
-        if (alpha >= 1f || alpha <= 0f) {
-            alphaChangeValue *= -1
-        }
-
-        //change the alpha of the particle as it moves through the view
-        paint.alpha = (alpha * 255).toInt()
-        alpha = (alpha + alphaChangeValue).coerceIn(0f, 1f)
+        flickerParticle()
 
         //normalize acceleration overtime
         if (acceleration > 1f) {
@@ -71,6 +51,64 @@ data class Particle(
 
     }
 
+
+    /**
+     * Normalizes velocity value slowly on each draw to the specified velocity range
+     * */
+    private fun normalizeVelocity(){
+
+        //normalize x-velocity overtime in case of acceleration change
+        if (xVelocity > maxVelocity) {
+            xVelocity -= 0.05f
+        } else if (xVelocity < maxVelocity*-1) {
+            xVelocity += 0.05f
+        }
+
+        //normalize y-velocity overtime in case of acceleration change
+        if (yVelocity > maxVelocity) {
+            yVelocity -= 0.05f
+        } else if (yVelocity < maxVelocity*-1) {
+            yVelocity += 0.05f
+        }
+
+    }
+
+    /**
+     * Changes the direction of the particle if the next move would be out of bounds (Edges of the view)
+     * */
+    private fun changeDirectionIfOutOfBounds(width: Int, height: Int){
+
+        //if the particle reached the left edge or the right edge of the view, reverse the velocity
+        if (x + xVelocity > width || x + xVelocity < 0) {
+            xVelocity *= -1
+        }
+
+        //if the particle reached the top edge or the bottom edge of the view, reverse the velocity
+        if (y + yVelocity > height || y + yVelocity < 0) {
+            yVelocity *= -1
+        }
+    }
+
+
+
+    /**
+     * Changes the alpha of the particle as it moves through the view, so it flickers as it moves
+     * */
+    private fun flickerParticle(){
+        //if the alpha is 1 or 0, reverse the alphaChangeValue so the particle keeps fading/appearing
+        if (alpha >= 1f || alpha <= 0f) {
+            alphaChangeValue *= -1
+        }
+
+        //change the alpha of the particle as it moves through the view
+        paint.alpha = (alpha * 255).toInt()
+        alpha = (alpha + alphaChangeValue).coerceIn(0f, 1f)
+    }
+
+
+
+    //-------------------------- ACCEL -------------------------------------
+
     /**
      * Accelerate away from the provided x,y point
      * This method changes the acceleration variable for the particle so the particle will accelerate away from the x,y point on the next move() method call
@@ -79,18 +117,18 @@ data class Particle(
 
         //change velocity so the particle accelerates away from the x,y point
         if (x > this.x && y < this.y) { //top left of the x,y point
-            this.yVelocity = Random.nextDouble(0.1, 0.5).toFloat()
-            this.xVelocity = Random.nextDouble(-0.5, -0.1).toFloat()
+            this.yVelocity = Random.nextDouble(0.1, maxVelocity.toDouble()).toFloat()
+            this.xVelocity = Random.nextDouble(maxVelocity.toDouble()*-1, -0.1).toFloat()
         } else if (x < this.x && y < this.y) {//top right of the x,y point
-            this.yVelocity = Random.nextDouble(0.1, 0.5).toFloat()
-            this.xVelocity = Random.nextDouble(0.1, 0.5).toFloat()
+            this.yVelocity = Random.nextDouble(0.1, maxVelocity.toDouble()).toFloat()
+            this.xVelocity = Random.nextDouble(0.1, maxVelocity.toDouble()).toFloat()
         } else if (x > this.x && y > this.y) {//bottom left of the x,y point
-            this.yVelocity = Random.nextDouble(-0.5, -0.1).toFloat()
-            this.xVelocity = Random.nextDouble(-0.5, -0.1).toFloat()
+            this.yVelocity = Random.nextDouble(maxVelocity.toDouble()*-1, -0.1).toFloat()
+            this.xVelocity = Random.nextDouble(maxVelocity.toDouble()*-1, -0.1).toFloat()
 
         } else {//bottom right of the x,y point
-            this.yVelocity = Random.nextDouble(-0.5, -0.1).toFloat()
-            this.xVelocity = Random.nextDouble(0.1, 0.5).toFloat()
+            this.yVelocity = Random.nextDouble(maxVelocity.toDouble()*-1, -0.1).toFloat()
+            this.xVelocity = Random.nextDouble(0.1, maxVelocity.toDouble()).toFloat()
         }
 
 
@@ -99,7 +137,7 @@ data class Particle(
             distance,
             300f,
             1.1f,
-            1.33f
+            maxAccel
         )
     }
 

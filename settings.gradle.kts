@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "SparkleTest"
 include(":app")
- 
+include(":Particles")

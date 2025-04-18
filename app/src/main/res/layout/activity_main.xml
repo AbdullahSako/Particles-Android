@@ -5,17 +5,31 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
 
-    <com.sako.sparkletest.SparkleView
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <com.sako.particles.SparkleView
+        android:id="@+id/sparkleView"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World"
+        android:textColor="@color/white"
+
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/sparkleView"
+        app:layout_constraintEnd_toEndOf="@+id/sparkleView"
+        app:layout_constraintStart_toStartOf="@+id/sparkleView"
+        app:layout_constraintTop_toTopOf="@+id/sparkleView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!--    <declare-styleable name="SegmentedProgressBarView">-->
+<!--        <attr name="segmentCount" format="integer"/>-->
+<!--        <attr name="segmentSpacing" format="float"/>-->
+<!--        <attr name="defaultSegmentColor" format="color"/>-->
+<!--        <attr name="segmentAlpha" format="float"/>-->
+<!--        <attr name="drawableWidth" format="dimension"/>-->
+<!--        <attr name="drawableWidthPositionDominator" format="float"/>-->
+<!--        <attr name="gradientColor1" format="color"/>-->
+<!--        <attr name="gradientColor2" format="color"/>-->
+<!--        <attr name="gradientColor3" format="color"/>-->
+<!--        <attr name="solidProgressColor" format="color"/>-->
+<!--        <attr name="enableDrawable" format="boolean"/>-->
+<!--    </declare-styleable>-->
+
+    <declare-styleable name="SparkleView">
+        <attr name="particlesCount" format="integer"/>
+        <attr name="particlesColor" format="color"/>
+        <attr name="randomColor" format="boolean"/>
+        <attr name="enableTopFadingEdge" format="boolean"/>
+        <attr name="enableBottomFadingEdge" format="boolean"/>
+        <attr name="enableLeftFadingEdge" format="boolean"/>
+        <attr name="enableRightFadingEdge" format="boolean"/>
+        <attr name="enableTouchToAccelerate" format="boolean"/>
+        <attr name="fadeWidth" format="float"/>
+        <attr name="fadeColor" format="color"/>
+        <attr name="maxVelocity" format="float"/>
+        <attr name="maxAcceleration" format="float"/>
+        <attr name="maxSize" format="float"/>
+    </declare-styleable>
+
+
+
+</resources>
