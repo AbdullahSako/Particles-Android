@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SparkleTest"
+rootProject.name = "ParticlesSample"
 include(":app")
 include(":Particles")

@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.sako.sparkletest"
+    namespace = "com.sako.particlessample"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.sako.sparkletest"
+        applicationId = "com.sako.particlessample"
         minSdk = 24
         targetSdk = 35
         versionCode = 1

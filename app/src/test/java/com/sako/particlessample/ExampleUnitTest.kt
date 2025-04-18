@@ -1,4 +1,4 @@
-package com.sako.sparkletest
+package com.sako.particlessample
 
 import org.junit.Test
 
