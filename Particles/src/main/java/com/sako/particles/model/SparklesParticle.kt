@@ -1,11 +1,11 @@
-package com.sako.particles
+package com.sako.particles.model
 
 import android.graphics.Paint
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.random.Random
 
-data class Particle(
+data class SparklesParticle(
     var x: Float,
     var y: Float,
     var xVelocity: Float,

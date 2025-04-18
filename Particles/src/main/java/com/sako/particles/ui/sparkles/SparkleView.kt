@@ -1,12 +1,14 @@
-package com.sako.particles
+package com.sako.particles.ui.sparkles
 
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.TypedArray
+import android.graphics.BlendMode
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Paint
+import android.graphics.Path
 import android.graphics.Shader
 import android.util.AttributeSet
 import android.view.MotionEvent
@@ -15,9 +17,13 @@ import android.view.animation.LinearInterpolator
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
 import androidx.annotation.IntRange
+import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
+import androidx.core.graphics.setBlendMode
+import com.sako.particles.R
+import com.sako.particles.model.SparklesParticle
 import kotlin.math.pow
 import kotlin.math.sqrt
 import kotlin.random.Random
@@ -48,13 +54,18 @@ class SparkleView @JvmOverloads constructor(
     var maxAcceleration: Float = 1.33f //max acceleration of the particles
     var maxSize: Float = 3f //max size of the particles
 
+    var sparkleViewBackgroundColor:Int = Color.TRANSPARENT
+    var radius = 0f
 
-    private val particleList = mutableListOf<Particle>()
+
+    private val particleList = mutableListOf<SparklesParticle>()
     private var leftFadePaint: Paint = Paint()
     private var rightFadePaint: Paint = Paint()
     private var bottomFadePaint: Paint = Paint()
     private var topFadePaint: Paint = Paint()
-
+    private var bgPaint: Paint = Paint()
+    private val animator = ValueAnimator.ofFloat(0f, 1f)
+    private var cornerRadiusClipPath = Path()
 
     init {
         setViewAttributes()
@@ -82,6 +93,9 @@ class SparkleView @JvmOverloads constructor(
          maxAcceleration = arr.getFloat(R.styleable.SparkleView_maxAcceleration,1.33f)
          maxSize = arr.getFloat(R.styleable.SparkleView_maxSize,3f)
 
+        sparkleViewBackgroundColor= arr.getColor(R.styleable.SparkleView_sparkleViewBackgroundColor,Color.TRANSPARENT)
+        radius = arr.getFloat(R.styleable.SparkleView_sparkleViewRadius,0f)
+
         arr.recycle()
     }
 
@@ -90,10 +104,15 @@ class SparkleView @JvmOverloads constructor(
 
         setupFadingEdgePaint()
 
+        //bg color paint
+        bgPaint = Paint().apply {
+            color = sparkleViewBackgroundColor
+        }
+
         //create the particles and add them to the list
         repeat(particlesCount) {
             particleList.add(
-                Particle(
+                SparklesParticle(
                     x = Random.nextDouble(0.0, w.toDouble()).toFloat(),
                     y = Random.nextDouble(0.0, h.toDouble()).toFloat(),
                     xVelocity = Random.nextDouble(
@@ -121,6 +140,11 @@ class SparkleView @JvmOverloads constructor(
             )
         }
 
+        //path for applying rounded corners
+        cornerRadiusClipPath = Path().apply {
+            addRoundRect(0f,0f,width.toFloat(),height.toFloat(),radius,radius,Path.Direction.CW)
+        }
+
         startAnimation()
     }
 
@@ -131,7 +155,7 @@ class SparkleView @JvmOverloads constructor(
      * */
     private fun startAnimation() {
 
-        val animator = ValueAnimator.ofFloat(0f, 1f)
+
         animator.interpolator = LinearInterpolator()
         animator.repeatCount = ValueAnimator.INFINITE
         animator.repeatMode = ValueAnimator.RESTART
@@ -144,6 +168,14 @@ class SparkleView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+
+        //if radius is set, apply rounded corners
+        if(radius != 0f){
+            canvas.clipPath(cornerRadiusClipPath)
+        }
+
+        //draw bg color
+        canvas.drawPaint(bgPaint)
 
         //draw particles
         repeat(particlesCount) {
@@ -291,4 +323,9 @@ class SparkleView @JvmOverloads constructor(
 
     }
 
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        animator.cancel()
+    }
 }

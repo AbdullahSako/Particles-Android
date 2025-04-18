@@ -29,6 +29,8 @@
         <attr name="maxVelocity" format="float"/>
         <attr name="maxAcceleration" format="float"/>
         <attr name="maxSize" format="float"/>
+        <attr name="sparkleViewBackgroundColor" format="color"/>
+        <attr name="sparkleViewRadius" format="float"/>
     </declare-styleable>
 
 

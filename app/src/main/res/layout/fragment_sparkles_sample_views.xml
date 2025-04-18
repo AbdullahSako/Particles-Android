@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#121212"
+    >
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/imageFilterView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/black"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_forest"
+        app:layout_constraintBottom_toTopOf="@+id/btnSparkleView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:round="20dp" />
+
+    <com.sako.particles.ui.sparkles.SparkleView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:sparkleViewRadius="50"
+        android:alpha="0.7"
+        app:particlesColor="@android:color/holo_green_light"
+        app:particlesCount="100"
+
+        app:fadeColor="@color/black"
+
+        app:layout_constraintBottom_toBottomOf="@+id/imageFilterView"
+        app:layout_constraintEnd_toEndOf="@+id/imageFilterView"
+        app:layout_constraintStart_toStartOf="@+id/imageFilterView"
+        app:layout_constraintTop_toTopOf="@+id/imageFilterView"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSparkleView"
+        app:layout_constraintEnd_toEndOf="@+id/btnSparkleView"
+        app:layout_constraintStart_toStartOf="@+id/btnSparkleView"
+        app:layout_constraintTop_toTopOf="@+id/btnSparkleView" />
+
+    <com.sako.particles.ui.sparkles.SparkleView
+        android:id="@+id/btnSparkleView"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:layout_marginHorizontal="80dp"
+        android:layout_marginTop="15dp"
+        android:elevation="-1dp"
+        app:enableTouchToAccelerate="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageFilterView"
+        app:particlesCount="200"
+        app:randomColor="true"
+        app:sparkleViewBackgroundColor="@color/black"
+        app:sparkleViewRadius="40" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:contentDescription="Previous page"
+        android:id="@+id/sparklesSampleViewsPrevFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/ic_arrow_back"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

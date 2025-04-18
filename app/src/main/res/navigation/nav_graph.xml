@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.sako.particlessample.ui.fragments.home.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_sparklesMainFragment"
+            app:destination="@id/sparklesMainFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/sparklesMainFragment"
+        android:name="com.sako.particlessample.ui.fragments.sparkles.SparklesMainFragment"
+        android:label="SparklesMainFragment" >
+        <action
+            android:id="@+id/action_sparklesMainFragment_to_sparklesButtonFragment"
+            app:destination="@id/sparklesButtonFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/sparklesButtonFragment"
+        android:name="com.sako.particlessample.ui.fragments.sparkles.SparklesSampleViewsFragment"
+        android:label="SparklesButtonFragment" />
+</navigation>

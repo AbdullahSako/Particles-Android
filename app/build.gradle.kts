@@ -33,6 +33,8 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    android.viewBinding.isEnabled = true
 }
 
 dependencies {
@@ -46,4 +48,13 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation (project(path= ":Particles"))}
+    //particles library
+    implementation (project(path= ":Particles"))
+
+    //navigation component
+    implementation (libs.androidx.navigation.fragment.ktx)
+    implementation (libs.androidx.navigation.ui.ktx)
+
+}
+
+
