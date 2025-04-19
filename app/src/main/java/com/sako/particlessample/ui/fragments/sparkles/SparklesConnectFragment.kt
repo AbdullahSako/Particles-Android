@@ -1,18 +1,16 @@
 package com.sako.particlessample.ui.fragments.sparkles
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.sako.particlessample.R
-import com.sako.particlessample.databinding.FragmentSparklesSampleViewsBinding
+import com.sako.particlessample.databinding.FragmentSparklesConnectBinding
 
-class SparklesSampleViewsFragment : Fragment() {
+class SparklesConnectFragment:Fragment() {
 
-    private var _binding: FragmentSparklesSampleViewsBinding? = null
+    private var _binding: FragmentSparklesConnectBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -20,7 +18,7 @@ class SparklesSampleViewsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSparklesSampleViewsBinding.inflate(inflater, container, false)
+        _binding = FragmentSparklesConnectBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }
@@ -28,24 +26,14 @@ class SparklesSampleViewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         setupListeners()
     }
 
-    private fun setupListeners() {
+    private fun setupListeners(){
 
-        binding.sparklesSampleViewsPrevFab.setOnClickListener {
+        binding.sparklesConnectPrevFab.setOnClickListener {
             findNavController().navigateUp()
         }
-
-        binding.sparklesSampleViewsNextFab.setOnClickListener {
-            findNavController().navigate(R.id.action_sparklesSampleViewsFragment_to_sparklesConnectFragment)
-        }
-
-        binding.btnSparkleView.setOnClickListener {
-            Log.d("TESTLOG","CLICKED!")
-        }
-
 
     }
 

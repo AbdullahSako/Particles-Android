@@ -22,15 +22,27 @@
         android:name="com.sako.particlessample.ui.fragments.sparkles.SparklesMainFragment"
         android:label="SparklesMainFragment" >
         <action
-            android:id="@+id/action_sparklesMainFragment_to_sparklesButtonFragment"
-            app:destination="@id/sparklesButtonFragment"
+            android:id="@+id/action_sparklesMainFragment_to_sparklesSampleViewsFragment"
+            app:destination="@id/sparklesSampleViewsFragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
-        android:id="@+id/sparklesButtonFragment"
+        android:id="@+id/sparklesSampleViewsFragment"
         android:name="com.sako.particlessample.ui.fragments.sparkles.SparklesSampleViewsFragment"
-        android:label="SparklesButtonFragment" />
+        android:label="sparklesSampleViewsFragment" >
+        <action
+            android:id="@+id/action_sparklesSampleViewsFragment_to_sparklesConnectFragment"
+            app:destination="@id/sparklesConnectFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/sparklesConnectFragment"
+        android:name="com.sako.particlessample.ui.fragments.sparkles.SparklesConnectFragment"
+        android:label="SparklesConnectFragment" />
 </navigation>

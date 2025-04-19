@@ -3,7 +3,6 @@ package com.sako.particles.ui.sparkles
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.TypedArray
-import android.graphics.BlendMode
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.LinearGradient
@@ -16,19 +15,17 @@ import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
-import androidx.annotation.IntRange
-import androidx.core.graphics.BlendModeCompat
-import androidx.core.graphics.blue
-import androidx.core.graphics.green
-import androidx.core.graphics.red
-import androidx.core.graphics.setBlendMode
 import com.sako.particles.R
 import com.sako.particles.model.SparklesParticle
+import com.sako.particles.utils.Tools.distanceBetweenTwoPoints
+import com.sako.particles.utils.Tools.generateRandomColor
+import com.sako.particles.utils.Tools.logd
+import com.sako.particles.utils.Tools.setColorAlpha
 import kotlin.math.pow
 import kotlin.math.sqrt
 import kotlin.random.Random
 
-class SparkleView @JvmOverloads constructor(
+class SparklesView @JvmOverloads constructor(
     context: Context,
     private val attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -39,13 +36,18 @@ class SparkleView @JvmOverloads constructor(
     var particlesCount = 150 //total number of particles
     var particlesColor = Color.GREEN
     var randomColor = false // flag to color each particle randomly
+    var connectLineColor = Color.RED //the color of the lines that connect the particles
     var enableTopFadingEdge = false //flag to enable fading edge at the top
     var enableBottomFadingEdge = false //flag to enable fading edge at the bottom
     var enableLeftFadingEdge = false //flag to enable fading edge at the left
     var enableRightFadingEdge = false //flag to enable fading edge at the right
-    var enableTouchToAccelerate = true //flag to enable touch to accelerate the particles away from touch point
+    var enableTouchToAccelerate =
+        true //flag to enable touch to accelerate the particles away from touch point
+    var enableParticleConnect = false
+    var maxParticleConnectDistance = 100f
 
     var fadeWidth = 100f // Width of the fading area
+
     @ColorInt
     var fadeColor = Color.WHITE // Color of the fading area
 
@@ -54,7 +56,7 @@ class SparkleView @JvmOverloads constructor(
     var maxAcceleration: Float = 1.33f //max acceleration of the particles
     var maxSize: Float = 3f //max size of the particles
 
-    var sparkleViewBackgroundColor:Int = Color.TRANSPARENT
+    var sparkleViewBackgroundColor: Int = Color.TRANSPARENT
     var radius = 0f
 
 
@@ -64,6 +66,7 @@ class SparkleView @JvmOverloads constructor(
     private var bottomFadePaint: Paint = Paint()
     private var topFadePaint: Paint = Paint()
     private var bgPaint: Paint = Paint()
+    private var connectLinePaint: Paint = Paint()
     private val animator = ValueAnimator.ofFloat(0f, 1f)
     private var cornerRadiusClipPath = Path()
 
@@ -75,26 +78,34 @@ class SparkleView @JvmOverloads constructor(
      * Get attributes passed from xml
      * */
     private fun setViewAttributes() {
-        val arr: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.SparkleView)
+        val arr: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.SparklesView)
 
-         particlesCount = arr.getInt(R.styleable.SparkleView_particlesCount,100)
-         particlesColor =   arr.getColor(R.styleable.SparkleView_particlesColor, Color.GREEN)
-         randomColor = arr.getBoolean(R.styleable.SparkleView_randomColor,false)
-         enableTopFadingEdge = arr.getBoolean(R.styleable.SparkleView_enableTopFadingEdge,false)
-         enableBottomFadingEdge =arr.getBoolean(R.styleable.SparkleView_enableBottomFadingEdge,false)
-         enableLeftFadingEdge = arr.getBoolean(R.styleable.SparkleView_enableLeftFadingEdge,false)
-         enableRightFadingEdge =arr.getBoolean(R.styleable.SparkleView_enableRightFadingEdge,false)
-         enableTouchToAccelerate =arr.getBoolean(R.styleable.SparkleView_enableTouchToAccelerate,false)
+        particlesCount = arr.getInt(R.styleable.SparklesView_particlesCount, 100)
+        particlesColor = arr.getColor(R.styleable.SparklesView_particlesColor, Color.GREEN)
+        randomColor = arr.getBoolean(R.styleable.SparklesView_randomColor, false)
+        connectLineColor = arr.getColor(R.styleable.SparklesView_connectLineColor, Color.RED)
+        enableTopFadingEdge = arr.getBoolean(R.styleable.SparklesView_enableTopFadingEdge, false)
+        enableBottomFadingEdge =
+            arr.getBoolean(R.styleable.SparklesView_enableBottomFadingEdge, false)
+        enableLeftFadingEdge = arr.getBoolean(R.styleable.SparklesView_enableLeftFadingEdge, false)
+        enableRightFadingEdge = arr.getBoolean(R.styleable.SparklesView_enableRightFadingEdge, false)
+        enableTouchToAccelerate =
+            arr.getBoolean(R.styleable.SparklesView_enableTouchToAccelerate, false)
+        enableParticleConnect =
+            arr.getBoolean(R.styleable.SparklesView_enableParticleConnect, false)
+        maxParticleConnectDistance =
+            arr.getFloat(R.styleable.SparklesView_maxParticleConnectDistance, 100f)
 
-         fadeWidth = arr.getFloat(R.styleable.SparkleView_fadeWidth,100f)
-         fadeColor = arr.getColor(R.styleable.SparkleView_fadeColor,Color.WHITE)
+        fadeWidth = arr.getFloat(R.styleable.SparklesView_fadeWidth, 100f)
+        fadeColor = arr.getColor(R.styleable.SparklesView_fadeColor, Color.WHITE)
 
-         maxVelocity = arr.getFloat(R.styleable.SparkleView_maxVelocity,0.5f)
-         maxAcceleration = arr.getFloat(R.styleable.SparkleView_maxAcceleration,1.33f)
-         maxSize = arr.getFloat(R.styleable.SparkleView_maxSize,3f)
+        maxVelocity = arr.getFloat(R.styleable.SparklesView_maxVelocity, 0.5f)
+        maxAcceleration = arr.getFloat(R.styleable.SparklesView_maxAcceleration, 1.33f)
+        maxSize = arr.getFloat(R.styleable.SparklesView_maxSize, 3f)
 
-        sparkleViewBackgroundColor= arr.getColor(R.styleable.SparkleView_sparkleViewBackgroundColor,Color.TRANSPARENT)
-        radius = arr.getFloat(R.styleable.SparkleView_sparkleViewRadius,0f)
+        sparkleViewBackgroundColor =
+            arr.getColor(R.styleable.SparklesView_sparkleViewBackgroundColor, Color.TRANSPARENT)
+        radius = arr.getFloat(R.styleable.SparklesView_sparkleViewRadius, 0f)
 
         arr.recycle()
     }
@@ -108,6 +119,14 @@ class SparkleView @JvmOverloads constructor(
         bgPaint = Paint().apply {
             color = sparkleViewBackgroundColor
         }
+
+        //connect line paint
+        connectLinePaint = Paint().apply {
+            color = connectLineColor
+        }
+
+        //clear list so that the particles are not duplicated as android recalls this method
+        particleList.clear()
 
         //create the particles and add them to the list
         repeat(particlesCount) {
@@ -142,7 +161,15 @@ class SparkleView @JvmOverloads constructor(
 
         //path for applying rounded corners
         cornerRadiusClipPath = Path().apply {
-            addRoundRect(0f,0f,width.toFloat(),height.toFloat(),radius,radius,Path.Direction.CW)
+            addRoundRect(
+                0f,
+                0f,
+                width.toFloat(),
+                height.toFloat(),
+                radius,
+                radius,
+                Path.Direction.CW
+            )
         }
 
         startAnimation()
@@ -170,7 +197,7 @@ class SparkleView @JvmOverloads constructor(
         super.onDraw(canvas)
 
         //if radius is set, apply rounded corners
-        if(radius != 0f){
+        if (radius != 0f) {
             canvas.clipPath(cornerRadiusClipPath)
         }
 
@@ -188,6 +215,36 @@ class SparkleView @JvmOverloads constructor(
 
             //move the particle
             particleList[it].move(width, height)
+
+            //------Draw connect lines-------
+            if(enableParticleConnect) { //check if flag is enables
+                //iterate through all particles to check if the current particle drawn is within distance with any other particle
+                for (particleTo in particleList) {
+
+                    //check if the current particle is not the same as the particle being iterated through
+                    if (particleTo != particleList[it]) {
+
+                        //calculate the distance between the current particle and the particle being iterated through
+                        val distanceBetweenParticles = distanceBetweenTwoPoints(
+                            particleList[it].x,
+                            particleList[it].y,
+                            particleTo.x,
+                            particleTo.y
+                        )
+
+                        //if within distance, draw a line between the two particles
+                        if (distanceBetweenParticles < maxParticleConnectDistance) {
+                            canvas.drawLine(
+                                particleList[it].x,
+                                particleList[it].y,
+                                particleTo.x,
+                                particleTo.y,
+                                connectLinePaint
+                            )
+                        }
+                    }
+                }
+            }
         }
 
 
@@ -229,23 +286,6 @@ class SparkleView @JvmOverloads constructor(
         }
 
         return super.onTouchEvent(event)
-    }
-
-    /**
-     * Generates a random color
-     * */
-    private fun generateRandomColor(): Int {
-        val red = Random.nextInt(256)
-        val green = Random.nextInt(256)
-        val blue = Random.nextInt(256)
-        return Color.rgb(red, green, blue)
-    }
-
-    /**
-     * sets the alpha of a color
-     * */
-    private fun Int.setColorAlpha(@IntRange(0, 255) alpha: Int): Int {
-        return Color.argb(alpha, this.red, this.green, this.blue)
     }
 
     /**

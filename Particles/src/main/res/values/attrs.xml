@@ -15,15 +15,18 @@
 <!--        <attr name="enableDrawable" format="boolean"/>-->
 <!--    </declare-styleable>-->
 
-    <declare-styleable name="SparkleView">
+    <declare-styleable name="SparklesView">
         <attr name="particlesCount" format="integer"/>
         <attr name="particlesColor" format="color"/>
         <attr name="randomColor" format="boolean"/>
+        <attr name="connectLineColor" format="color"/>
         <attr name="enableTopFadingEdge" format="boolean"/>
         <attr name="enableBottomFadingEdge" format="boolean"/>
         <attr name="enableLeftFadingEdge" format="boolean"/>
         <attr name="enableRightFadingEdge" format="boolean"/>
         <attr name="enableTouchToAccelerate" format="boolean"/>
+        <attr name="enableParticleConnect" format="boolean"/>
+        <attr name="maxParticleConnectDistance" format="float"/>
         <attr name="fadeWidth" format="float"/>
         <attr name="fadeColor" format="color"/>
         <attr name="maxVelocity" format="float"/>
@@ -32,6 +35,7 @@
         <attr name="sparkleViewBackgroundColor" format="color"/>
         <attr name="sparkleViewRadius" format="float"/>
     </declare-styleable>
+
 
 
 

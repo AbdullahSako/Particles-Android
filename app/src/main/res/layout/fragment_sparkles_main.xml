@@ -5,7 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.sako.particles.ui.sparkles.SparkleView
+    <TextView
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:elevation="1dp"
+        android:fontFamily="sans-serif-black"
+        android:shadowColor="#647FCF"
+        android:shadowDx="1.5"
+        android:shadowDy="1.3"
+        android:shadowRadius="25"
+        android:text="Sparkles"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.sako.particles.ui.sparkles.SparklesView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:sparkleViewBackgroundColor="#121212"

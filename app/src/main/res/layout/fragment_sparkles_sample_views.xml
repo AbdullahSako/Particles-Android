@@ -24,7 +24,7 @@
         app:layout_constraintVertical_chainStyle="packed"
         app:round="20dp" />
 
-    <com.sako.particles.ui.sparkles.SparkleView
+    <com.sako.particles.ui.sparkles.SparklesView
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:sparkleViewRadius="50"
@@ -53,7 +53,7 @@
         app:layout_constraintStart_toStartOf="@+id/btnSparkleView"
         app:layout_constraintTop_toTopOf="@+id/btnSparkleView" />
 
-    <com.sako.particles.ui.sparkles.SparkleView
+    <com.sako.particles.ui.sparkles.SparklesView
         android:id="@+id/btnSparkleView"
         android:layout_width="match_parent"
         android:layout_height="62dp"
@@ -83,6 +83,18 @@
         android:scaleType="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:contentDescription="Next page"
+        android:id="@+id/sparklesSampleViewsNextFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/ic_arrow_forward"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
 
 

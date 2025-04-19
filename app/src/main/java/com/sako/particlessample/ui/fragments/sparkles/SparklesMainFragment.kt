@@ -33,7 +33,7 @@ class SparklesMainFragment:Fragment() {
     private fun setupListeners(){
 
         binding.sparklesMainNextFab.setOnClickListener {
-            findNavController().navigate(R.id.action_sparklesMainFragment_to_sparklesButtonFragment)
+            findNavController().navigate(R.id.action_sparklesMainFragment_to_sparklesSampleViewsFragment)
         }
 
     }
