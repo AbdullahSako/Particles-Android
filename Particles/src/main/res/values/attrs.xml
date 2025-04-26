@@ -36,6 +36,13 @@
         <attr name="sparkleViewRadius" format="float"/>
     </declare-styleable>
 
+    <declare-styleable name="ParticleExplosionView">
+        <attr name="partExp_particlesCount" format="integer"/>
+        <attr name="partExp_particlesColor" format="color"/>
+        <attr name="partExp_randomColor" format="boolean"/>
+        <attr name="partExp_maxSize" format="float"/>
+        <attr name="partExp_minSize" format="float"/>
+    </declare-styleable>
 
 
 
