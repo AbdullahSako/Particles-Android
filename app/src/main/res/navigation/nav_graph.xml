@@ -16,6 +16,13 @@
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out"
             />
+        <action
+            android:id="@+id/action_homeFragment_to_particleExplosionFragment"
+            app:destination="@id/particleExplosionFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/sparklesMainFragment"
@@ -45,4 +52,8 @@
         android:id="@+id/sparklesConnectFragment"
         android:name="com.sako.particlessample.ui.fragments.sparkles.SparklesConnectFragment"
         android:label="SparklesConnectFragment" />
+    <fragment
+        android:id="@+id/particleExplosionFragment"
+        android:name="com.sako.particlessample.ui.fragments.particleExplosion.ParticleExplosionFragment"
+        android:label="ParticleExplosionFragment" />
 </navigation>

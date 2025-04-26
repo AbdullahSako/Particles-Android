@@ -42,6 +42,7 @@
         <attr name="partExp_randomColor" format="boolean"/>
         <attr name="partExp_maxSize" format="float"/>
         <attr name="partExp_minSize" format="float"/>
+        <attr name="partExp_trailLength" format="integer"/>
     </declare-styleable>
 
 

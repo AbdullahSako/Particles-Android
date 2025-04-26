@@ -23,7 +23,7 @@ data class ExplosionParticle(
 ) {
     private val fadeDistance = 100f //Distance from the edge where fading starts
 
-    fun move(width: Int, height: Int) {
+    fun move(width: Int, height: Int,trailLength:Int) {
 
         //normalize velocity overtime
         normalizeVelocity()
@@ -51,7 +51,7 @@ data class ExplosionParticle(
         y += yVelocity
 
         //limit the trail list to 10 items
-        if(history.count()>10){
+        if(history.count()>trailLength){
             history.removeAt(0)
         }
 

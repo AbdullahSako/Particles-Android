@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.sako.particles.utils.Tools.logd
 import com.sako.particlessample.R
 import com.sako.particlessample.databinding.FragmentHomeBinding
 
@@ -35,10 +36,11 @@ class HomeFragment : Fragment() {
 
         binding.sparklesBtn.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_sparklesMainFragment)
-
         }
 
-
+        binding.particleExplosionBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_particleExplosionFragment)
+        }
 
     }
 

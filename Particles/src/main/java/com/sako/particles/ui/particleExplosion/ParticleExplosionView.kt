@@ -12,6 +12,7 @@ import android.view.animation.LinearInterpolator
 import com.sako.particles.R
 import com.sako.particles.model.ExplosionParticle
 import com.sako.particles.utils.Tools.generateRandomColor
+import com.sako.particles.utils.Tools.logd
 import kotlin.math.min
 import kotlin.random.Random
 
@@ -27,10 +28,11 @@ class ParticleExplosionView @JvmOverloads constructor(
 
 
     var particlesCount = 150 //total number of particles
-    var particlesColor = Color.GREEN
+    var particlesColor = Color.RED
     var randomColor = false // flag to color each particle randomly
     var maxSize: Float = 8f //max size of the particles
     var minSize:Float = 2f //min size of the particles
+    var trailLength:Int = 10
 
     init {
         setViewAttributes()
@@ -43,10 +45,11 @@ class ParticleExplosionView @JvmOverloads constructor(
         val arr: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.ParticleExplosionView)
 
         particlesCount = arr.getInt(R.styleable.ParticleExplosionView_partExp_particlesCount, 150)
-        particlesColor = arr.getColor(R.styleable.ParticleExplosionView_partExp_particlesColor, Color.GREEN)
+        particlesColor = arr.getColor(R.styleable.ParticleExplosionView_partExp_particlesColor, Color.RED)
         randomColor = arr.getBoolean(R.styleable.ParticleExplosionView_partExp_randomColor, false)
         maxSize = arr.getFloat(R.styleable.ParticleExplosionView_partExp_maxSize, 8f)
         minSize = arr.getFloat(R.styleable.ParticleExplosionView_partExp_minSize, 2f)
+        trailLength = arr.getInt(R.styleable.ParticleExplosionView_partExp_trailLength, 10)
 
         arr.recycle()
     }
@@ -63,7 +66,7 @@ class ParticleExplosionView @JvmOverloads constructor(
      * Starts the animation of the particles,
      * This is done by running an infinite ValueAnimator and calling postInvalidateOnAnimation() on each frame
      * */
-    fun startAnimation() {
+    fun startExplosion() {
 
         //stop previous animation
         animator.cancel()
@@ -72,7 +75,7 @@ class ParticleExplosionView @JvmOverloads constructor(
         particleList.clear()
 
         //create the particles and add them to the list
-        repeat(150) {
+        repeat(particlesCount) {
             particleList.add(
                 ExplosionParticle(
                     x = width / 2f,
@@ -137,10 +140,21 @@ class ParticleExplosionView @JvmOverloads constructor(
             //draw the main particle
             canvas.drawCircle(particle.x, particle.y, particle.size, particle.paint)
 
-            particle.move(width, height)
+            particle.move(width, height,trailLength)
         }
 
 
+        //if there are no more particles, cancel the animator so it stops invalidating the view
+        if(particleList.isEmpty()){
+            animator.cancel()
+        }
+
+    }
+
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        animator.cancel()
     }
 
 
