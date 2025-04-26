@@ -94,8 +94,7 @@ class ParticleExplosionView @JvmOverloads constructor(
                         color = if (randomColor) {
                             generateRandomColor()
                         } else {
-
-                            Color.RED
+                            particlesColor
                         }
 
                     })
