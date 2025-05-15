@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "ParticlesSample"
 include(":app")
 include(":Particles")
+include(":Particles-compose")

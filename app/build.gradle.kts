@@ -34,6 +34,14 @@ android {
         jvmTarget = "11"
     }
 
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.14"
+    }
+
     android.viewBinding.isEnabled = true
 }
 
@@ -50,10 +58,29 @@ dependencies {
 
     //particles library
     implementation (project(path= ":Particles"))
+    implementation (project(path= ":Particles-compose"))
 
     //navigation component
     implementation (libs.androidx.navigation.fragment.ktx)
     implementation (libs.androidx.navigation.ui.ktx)
+
+
+    //compose
+    val composeBom = platform("androidx.compose:compose-bom:2025.05.00")
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+
+    // Choose one of the following:
+    // Material Design 3
+    implementation("androidx.compose.material3:material3")
+    // or Material Design 2
+    implementation("androidx.compose.material:material")
+    // or skip Material Design and build directly on top of foundational components
+    implementation("androidx.compose.foundation:foundation")
+    // or only import the main APIs for the underlying toolkit systems,
+    // such as input and measurement/layout
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.activity:activity-compose:1.10.1")
 
 }
 

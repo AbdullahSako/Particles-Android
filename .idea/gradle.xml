@@ -11,6 +11,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Particles" />
+            <option value="$PROJECT_DIR$/Particles-compose" />
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>
