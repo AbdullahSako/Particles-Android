@@ -46,5 +46,23 @@
     </declare-styleable>
 
 
+    <declare-styleable name="FireworksView">
+        <attr name="fireworkCount" format="integer"/>
+        <attr name="fireworkMainParticleColor" format="color"/>
+        <attr name="fireworkMainParticleMinVelocity" format="float"/>
+        <attr name="fireworkMainParticleMaxVelocity" format="float"/>
+        <attr name="fireworkMainParticleSize" format="float"/>
+        <attr name="fireworkMainParticleTrailCount" format="float"/>
+        <attr name="fireworkExplosionParticleCount" format="integer"/>
+        <attr name="fireworkExplosionParticleColor" format="color"/>
+        <attr name="fireworkExplosionRandomColor" format="boolean"/>
+        <attr name="fireworkExplosionParticleRandomColor" format="boolean"/>
+        <attr name="fireworkExplosionParticleMaxSize" format="float"/>
+        <attr name="fireworkExplosionParticleMinSize" format="float"/>
+        <attr name="fireworkExplosionAreaMaxSize" format="integer"/>
+        <attr name="fireworkExplosionParticleTrailCount" format="integer"/>
+        <attr name="fireworkExplosionSmudge" format="boolean"/>
+    </declare-styleable>
+
 
 </resources>

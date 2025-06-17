@@ -1,9 +1,6 @@
 package com.sako.particles.model
 
 import android.graphics.Paint
-import com.sako.particles.utils.Tools.logd
-import java.util.Vector
-import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.ranges.coerceIn
@@ -114,6 +111,5 @@ data class ExplosionParticle(
 
     }
 
-    inner class Vector(val x:Float,val y: Float)
 }
 

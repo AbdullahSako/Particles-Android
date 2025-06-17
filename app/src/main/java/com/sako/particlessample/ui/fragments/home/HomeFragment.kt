@@ -42,6 +42,10 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_particleExplosionFragment)
         }
 
+        binding.fireworksBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_fireworksFragment)
+        }
+
     }
 
     override fun onDestroyView() {
