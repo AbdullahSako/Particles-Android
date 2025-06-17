@@ -30,10 +30,7 @@ fun SparklesView(
     particlesCount: Int = 150,
     particlesColor: Color = Color.Green,
     randomColor: Boolean = false,
-    connectLineColor: Color = Color.Red,
     enableTouchToAccelerate: Boolean = true,
-    enableParticleConnect: Boolean = false,
-    maxParticleConnectDistance: Float = 100f,
     maxVelocity: Float = 0.5f,
     maxAcceleration: Float = 1.33f,
     maxSize: Float = 3f
