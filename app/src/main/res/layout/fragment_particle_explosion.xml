@@ -5,89 +5,121 @@
     android:layout_height="match_parent"
     android:background="#121212">
 
-    <Button
-        android:id="@+id/partExpFragmentWideBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Wide\nExplosion"
-        app:layout_constraintBottom_toTopOf="@+id/partExpFragmentFullScreenBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <com.sako.particles.ui.particleExplosion.ParticleExplosionView
         android:id="@+id/partExpWideView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:elevation="-1dp"
-        app:layout_constraintBottom_toBottomOf="@+id/partExpFragmentWideBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/partExpFragmentWideBtn" />
-
-    <Button
-        android:id="@+id/partExpFragmentFullScreenBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fullscreen\nExplosion"
-        app:layout_constraintBottom_toTopOf="@+id/partExpFragmentNarrowBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/partExpFragmentWideBtn" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.sako.particles.ui.particleExplosion.ParticleExplosionView
         android:id="@+id/partExpFullScreenView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:partExp_particlesCount="250"
-        app:partExp_particlesColor="@android:color/holo_green_light"
-        android:elevation="-1dp" />
-
-    <Button
-        android:id="@+id/partExpFragmentNarrowBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Narrow\nExplosion"
-        app:layout_constraintBottom_toTopOf="@+id/partExpColorfulBtn"
+        android:elevation="-1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/partExpFragmentFullScreenBtn" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:partExp_particlesColor="@android:color/holo_green_light"
+        app:partExp_particlesCount="250" />
 
     <com.sako.particles.ui.particleExplosion.ParticleExplosionView
         android:id="@+id/partExpNarrowView"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:elevation="-1dp"
-        app:partExp_particlesColor="@android:color/holo_orange_light"
-        app:layout_constraintBottom_toBottomOf="@+id/partExpFragmentNarrowBtn"
-        app:layout_constraintEnd_toEndOf="@+id/partExpFragmentNarrowBtn"
-        app:layout_constraintStart_toStartOf="@+id/partExpFragmentNarrowBtn"
-        app:layout_constraintTop_toTopOf="@+id/partExpFragmentNarrowBtn" />
-
-    <Button
-        android:id="@+id/partExpColorfulBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Colorful\nExplosion"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/partExpFragmentNarrowBtn" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:partExp_particlesColor="@android:color/holo_orange_light" />
 
     <com.sako.particles.ui.particleExplosion.ParticleExplosionView
         android:id="@+id/partExpColorfulView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:elevation="-1dp"
-        app:layout_constraintBottom_toBottomOf="@+id/partExpColorfulBtn"
-        app:layout_constraintEnd_toEndOf="@+id/partExpColorfulBtn"
-        app:layout_constraintStart_toStartOf="@+id/partExpColorfulBtn"
-        app:layout_constraintTop_toTopOf="@+id/partExpColorfulBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:partExp_randomColor="true" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/partExpFragmentNarrowBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Narrow"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:backgroundTint="@android:color/transparent"
+            app:cornerRadius="0dp"
+            app:strokeColor="@color/white"
+            app:strokeWidth="0.5dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/partExpFragmentWideBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Wide"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:backgroundTint="@android:color/transparent"
+            app:cornerRadius="0dp"
+            app:strokeColor="@color/white"
+            app:strokeWidth="0.5dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/partExpColorfulBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:maxLines="1"
+            android:text="Colorful"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:backgroundTint="@android:color/transparent"
+            app:cornerRadius="0dp"
+            app:strokeColor="@color/white"
+            app:strokeWidth="0.5dp" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/partExpFragmentFullScreenBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Fullscreen"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:backgroundTint="@android:color/transparent"
+            app:cornerRadius="0dp"
+            app:strokeColor="@color/white"
+            app:strokeWidth="0.5dp" />
+
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
