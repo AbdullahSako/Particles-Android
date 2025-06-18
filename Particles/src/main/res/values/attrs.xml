@@ -52,7 +52,7 @@
         <attr name="fireworkMainParticleMinVelocity" format="float"/>
         <attr name="fireworkMainParticleMaxVelocity" format="float"/>
         <attr name="fireworkMainParticleSize" format="float"/>
-        <attr name="fireworkMainParticleTrailCount" format="float"/>
+        <attr name="fireworkMainParticleTrailCount" format="integer"/>
         <attr name="fireworkExplosionParticleCount" format="integer"/>
         <attr name="fireworkExplosionParticleColor" format="color"/>
         <attr name="fireworkExplosionRandomColor" format="boolean"/>
