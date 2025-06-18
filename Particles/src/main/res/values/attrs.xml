@@ -64,5 +64,14 @@
         <attr name="fireworkExplosionSmudge" format="boolean"/>
     </declare-styleable>
 
+    <declare-styleable name="SnowfallView">
+        <attr name="snowfallParticleCount" format="integer"/>
+        <attr name="snowfallMinParticleSize" format="float"/>
+        <attr name="snowfallMaxParticleSize" format="float"/>
+        <attr name="snowfallParticleColor" format="color"/>
+        <attr name="snowfallRandomParticleColors" format="boolean"/>
+        <attr name="snowfallRandomParticleStartingPositions" format="boolean"/>
+    </declare-styleable>
+
 
 </resources>
