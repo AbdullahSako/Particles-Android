@@ -1,6 +1,7 @@
 package com.sako.particles.model
 
 import android.graphics.Paint
+import com.sako.particles.utils.Constants.FRAME_RATE
 import com.sako.particles.utils.Tools
 import kotlin.random.Random
 
@@ -22,7 +23,7 @@ data class SnowParticle(
      *  @param viewWidth Canvas view width
      *  @param viewHeight Canvas view height
      * */
-    fun move(viewWidth: Int, viewHeight: Int) {
+    fun move(viewWidth: Int, viewHeight: Int,deltaTime: Float) {
 
         //apply acceleration to the velocity
         xVelocity += xAcceleration
@@ -33,8 +34,8 @@ data class SnowParticle(
         }
 
         //move the particle
-        x += xVelocity
-        y += yVelocity
+        x += xVelocity * FRAME_RATE * deltaTime
+        y += yVelocity * FRAME_RATE * deltaTime
 
 
         //if the particle falls under the view, set the isOutsideFrame flag to true
@@ -67,8 +68,8 @@ data class SnowParticle(
             return SnowParticle(
                 x = Random.nextDouble(0.0, w.toDouble()).toFloat(),
                 y = y,
-                xVelocity = Random.nextDouble(-1.0, 1.0).toFloat(),
-                yVelocity = Random.nextDouble(0.7, 1.5).toFloat(),
+                xVelocity = Random.nextDouble(-2.0, 2.0).toFloat(),
+                yVelocity = Random.nextDouble(1.0, 1.7).toFloat(),
                 xAcceleration = Random.nextDouble(0.001, 0.009).toFloat(),
                 size = Random.nextDouble(minSize.toDouble(), maxSize.toDouble()).toFloat(),
                 paint = Paint().apply {

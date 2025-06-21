@@ -3,6 +3,7 @@ package com.sako.particles.model.firework
 import android.graphics.Paint
 import android.graphics.Rect
 import com.sako.particles.model.Vector
+import com.sako.particles.utils.Constants.FRAME_RATE
 import com.sako.particles.utils.Tools.logd
 import kotlin.math.absoluteValue
 import kotlin.math.max
@@ -25,7 +26,7 @@ data class FireworkExplosionParticle(
     private val fadeDistance = 100f //Distance from the edge where fading starts
     private val gravity = 0.03f //Gravity value
 
-    fun move(trailLength:Int, distanceLimitRectangle: Rect,enableSmudge:Boolean = false) {
+    fun move(trailLength:Int, distanceLimitRectangle: Rect,enableSmudge:Boolean = false,deltaTime:Float) {
         val historyCount = history.count()
 
 
@@ -71,8 +72,8 @@ data class FireworkExplosionParticle(
         }
 
         //move the particle
-        x += xVelocity
-        y += yVelocity
+        x += xVelocity * deltaTime * FRAME_RATE
+        y += yVelocity * deltaTime * FRAME_RATE
 
         //decrease the life span of the particle
         lifeSpan--

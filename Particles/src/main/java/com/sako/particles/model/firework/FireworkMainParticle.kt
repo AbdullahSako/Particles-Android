@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import com.sako.particles.model.Vector
+import com.sako.particles.utils.Constants.FRAME_RATE
 import com.sako.particles.utils.Tools.generateRandomColor
 import kotlin.math.sqrt
 import kotlin.random.Random
@@ -22,15 +23,16 @@ data class FireworkMainParticle(
 ) {
 
 
-    fun move(trailMaxCount: Int) {
+    fun move(trailMaxCount: Int,deltaTime:Float) {
 
+        val frameRate = if (deltaTime > 0) 1f / deltaTime else 60f
 
         //add the current position to the history
         history.add(Vector(x, y))
 
 
         //move particle
-        y += yVelocity
+        y += yVelocity * FRAME_RATE * deltaTime
 
 
         //limit the trail list to trailMaxCount

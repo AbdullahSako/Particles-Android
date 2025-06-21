@@ -2,6 +2,7 @@ package com.sako.particles.model
 
 import android.graphics.Color
 import android.graphics.Paint
+import com.sako.particles.utils.Constants.FRAME_RATE
 import kotlin.random.Random
 
 data class SpaceTravelStarParticle(
@@ -16,23 +17,23 @@ data class SpaceTravelStarParticle(
     val paint: Paint,
 ) {
 
-    fun move(w: Int, h: Int, trailCount:Int) {
+    fun move(w: Int, h: Int, trailCount: Int, deltaTime: Float) {
 
         //add the current position to the history to draw a trail
         history.add(Vector(x, y))
-        if(history.size > trailCount) {
+        if (history.size > trailCount) {
             history.removeAt(0)
         }
 
 
         //apply acceleration
-        xVelocity *= acceleration + (size/100)
-        yVelocity *= acceleration + (size/100)
+        xVelocity *= acceleration + (size / 100)
+        yVelocity *= acceleration + (size / 100)
 
 
         //apply velocity
-        x += xVelocity
-        y += yVelocity
+        x += xVelocity * deltaTime * FRAME_RATE
+        y += yVelocity * deltaTime * FRAME_RATE
 
 
         //increase the size overtime
@@ -40,7 +41,7 @@ data class SpaceTravelStarParticle(
 
 
         //check if the particle is out of bounds
-        if((x> w || x < 0)|| (y > h || y < 0)){
+        if ((x > w || x < 0) || (y > h || y < 0)) {
 
             //reset particle and reposition inside the bounds
             resetParticle(w, h)
@@ -50,7 +51,7 @@ data class SpaceTravelStarParticle(
     /**
      * resets the parameters of the a particle
      * */
-    private fun resetParticle(w: Int, h: Int){
+    private fun resetParticle(w: Int, h: Int) {
         val centerX = w / 2f
         val centerY = h / 2f
 
@@ -73,7 +74,7 @@ data class SpaceTravelStarParticle(
     /**
      * stop the particle
      * */
-    fun stop(){
+    fun stop() {
         history.clear()
     }
 

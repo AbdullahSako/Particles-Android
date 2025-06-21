@@ -10,6 +10,7 @@ import android.view.View
 import android.view.animation.LinearInterpolator
 import com.sako.particles.R
 import com.sako.particles.model.SnowParticle
+import com.sako.particles.utils.TimerIntegration
 
 class SnowfallView @JvmOverloads constructor(
     context: Context,
@@ -27,6 +28,7 @@ class SnowfallView @JvmOverloads constructor(
 
     private val snowParticleList = mutableListOf<SnowParticle>()
     private val animator = ValueAnimator.ofFloat(0f, 1f)
+    private var timer: TimerIntegration = TimerIntegration()
 
 
     init {
@@ -74,27 +76,15 @@ class SnowfallView @JvmOverloads constructor(
 
 
 
-        startAnimation()
+        invalidate()
     }
 
 
-    /**
-     * Starts the animation of the particles,
-     * This is done by running an infinite ValueAnimator and calling postInvalidateOnAnimation() on each frame
-     * */
-    private fun startAnimation() {
-        animator.interpolator = LinearInterpolator()
-        animator.repeatCount = ValueAnimator.INFINITE
-        animator.repeatMode = ValueAnimator.RESTART
-        animator.addUpdateListener {
-            postInvalidateOnAnimation()
-        }
 
-        animator.start()
-    }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        val deltaTime= timer.getDeltaTime()
 
 
         val snowParticleListIterator = snowParticleList.listIterator()
@@ -105,7 +95,7 @@ class SnowfallView @JvmOverloads constructor(
             canvas.drawCircle(snowParticle.x, snowParticle.y, snowParticle.size, snowParticle.paint)
 
             //move particle
-            snowParticle.move(width, height)
+            snowParticle.move(width, height,deltaTime)
 
 
             //if snow particle is under the view
@@ -132,6 +122,13 @@ class SnowfallView @JvmOverloads constructor(
         }
 
 
+        postInvalidateOnAnimation()
+    }
+
+
+    override fun onVisibilityChanged(changedView: View, visibility: Int) {
+        super.onVisibilityChanged(changedView, visibility)
+        timer.reset()
     }
 
 

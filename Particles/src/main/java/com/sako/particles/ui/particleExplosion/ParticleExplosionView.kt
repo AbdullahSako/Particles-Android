@@ -8,11 +8,10 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
-import android.view.animation.LinearInterpolator
 import com.sako.particles.R
 import com.sako.particles.model.ExplosionParticle
+import com.sako.particles.utils.TimerIntegration
 import com.sako.particles.utils.Tools.generateRandomColor
-import com.sako.particles.utils.Tools.logd
 import kotlin.math.min
 import kotlin.random.Random
 
@@ -25,14 +24,15 @@ class ParticleExplosionView @JvmOverloads constructor(
     private val animator = ValueAnimator.ofFloat(0f, 1f)
     private val particleList = mutableListOf<ExplosionParticle>()
     private var maxVelocity: Float = 0f
+    private var timer: TimerIntegration = TimerIntegration()
 
 
     var particlesCount = 150 //total number of particles
     var particlesColor = Color.RED
     var randomColor = false // flag to color each particle randomly
     var maxSize: Float = 8f //max size of the particles
-    var minSize:Float = 2f //min size of the particles
-    var trailLength:Int = 10
+    var minSize: Float = 2f //min size of the particles
+    var trailLength: Int = 10
 
     init {
         setViewAttributes()
@@ -42,10 +42,12 @@ class ParticleExplosionView @JvmOverloads constructor(
      * Get attributes passed from xml
      * */
     private fun setViewAttributes() {
-        val arr: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.ParticleExplosionView)
+        val arr: TypedArray =
+            context.obtainStyledAttributes(attrs, R.styleable.ParticleExplosionView)
 
         particlesCount = arr.getInt(R.styleable.ParticleExplosionView_partExp_particlesCount, 150)
-        particlesColor = arr.getColor(R.styleable.ParticleExplosionView_partExp_particlesColor, Color.RED)
+        particlesColor =
+            arr.getColor(R.styleable.ParticleExplosionView_partExp_particlesColor, Color.RED)
         randomColor = arr.getBoolean(R.styleable.ParticleExplosionView_partExp_randomColor, false)
         maxSize = arr.getFloat(R.styleable.ParticleExplosionView_partExp_maxSize, 8f)
         minSize = arr.getFloat(R.styleable.ParticleExplosionView_partExp_minSize, 2f)
@@ -59,17 +61,13 @@ class ParticleExplosionView @JvmOverloads constructor(
         super.onSizeChanged(w, h, oldw, oldh)
 
         //setup max velocity based on view size
-        maxVelocity = (width * height) / ((width + height) * 75).toFloat()
+        maxVelocity = (width * height) / ((width + height) * 45).toFloat()
     }
 
     /**
-     * Starts the animation of the particles,
-     * This is done by running an infinite ValueAnimator and calling postInvalidateOnAnimation() on each frame
+     * prepare and start explosion animation
      * */
     fun startExplosion() {
-
-        //stop previous animation
-        animator.cancel()
 
         //clear list
         particleList.clear()
@@ -104,24 +102,13 @@ class ParticleExplosionView @JvmOverloads constructor(
             )
         }
 
-        //setup animator
-        animator.interpolator = LinearInterpolator()
-        animator.repeatCount = ValueAnimator.INFINITE
-        animator.repeatMode = ValueAnimator.RESTART
+        invalidate()
 
-        //animator update listener
-        animator.addUpdateListener {
-
-            //redraw the view on each frame
-            postInvalidateOnAnimation()
-        }
-
-        //start animator
-        animator.start()
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        val deltaTime = timer.getDeltaTime()
 
         particleList.removeIf { it.paint.alpha <= 0 }
 
@@ -140,22 +127,23 @@ class ParticleExplosionView @JvmOverloads constructor(
             //draw the main particle
             canvas.drawCircle(particle.x, particle.y, particle.size, particle.paint)
 
-            particle.move(width, height,trailLength)
+            particle.move(width, height, trailLength,deltaTime)
         }
 
 
-        //if there are no more particles, cancel the animator so it stops invalidating the view
-        if(particleList.isEmpty()){
-            animator.cancel()
+        //if there are no more particles, do not invalidate view
+        if (particleList.isEmpty()) {
+            timer.reset()
+        } else {
+            postInvalidateOnAnimation()
         }
 
     }
 
 
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-        animator.cancel()
+    override fun onVisibilityChanged(changedView: View, visibility: Int) {
+        super.onVisibilityChanged(changedView, visibility)
+        timer.reset()
     }
-
 
 }

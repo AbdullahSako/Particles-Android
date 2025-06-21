@@ -67,7 +67,6 @@ class SparklesView @JvmOverloads constructor(
     private var topFadePaint: Paint = Paint()
     private var bgPaint: Paint = Paint()
     private var connectLinePaint: Paint = Paint()
-    private val animator = ValueAnimator.ofFloat(0f, 1f)
     private var cornerRadiusClipPath = Path()
 
     init {
@@ -172,26 +171,11 @@ class SparklesView @JvmOverloads constructor(
             )
         }
 
-        startAnimation()
+        invalidate()
     }
 
 
-    /**
-     * Starts the animation of the particles,
-     * This is done by running an infinite ValueAnimator and calling postInvalidateOnAnimation() on each frame
-     * */
-    private fun startAnimation() {
 
-
-        animator.interpolator = LinearInterpolator()
-        animator.repeatCount = ValueAnimator.INFINITE
-        animator.repeatMode = ValueAnimator.RESTART
-        animator.addUpdateListener {
-            postInvalidateOnAnimation()
-        }
-
-        animator.start()
-    }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -263,6 +247,7 @@ class SparklesView @JvmOverloads constructor(
         }
 
 
+        postInvalidateOnAnimation()
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -364,8 +349,4 @@ class SparklesView @JvmOverloads constructor(
     }
 
 
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-        animator.cancel()
-    }
 }

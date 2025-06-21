@@ -1,6 +1,7 @@
 package com.sako.particles.model
 
 import android.graphics.Paint
+import com.sako.particles.utils.Constants.FRAME_RATE
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.ranges.coerceIn
@@ -20,7 +21,7 @@ data class ExplosionParticle(
 ) {
     private val fadeDistance = 100f //Distance from the edge where fading starts
 
-    fun move(width: Int, height: Int,trailLength:Int) {
+    fun move(width: Int, height: Int,trailLength:Int,deltaTime: Float) {
 
         //normalize velocity overtime
         normalizeVelocity()
@@ -44,8 +45,8 @@ data class ExplosionParticle(
         history.add(Vector(x,y))
 
         //move the particle
-        x += xVelocity
-        y += yVelocity
+        x += xVelocity * deltaTime * FRAME_RATE
+        y += yVelocity * deltaTime * FRAME_RATE
 
         //limit the trail list to 10 items
         if(history.count()>trailLength){

@@ -1,30 +1,27 @@
 package com.sako.particles.ui.spaceTravel
 
-import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.Canvas
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
-import android.view.animation.LinearInterpolator
 import com.sako.particles.R
 import com.sako.particles.model.SpaceTravelStarParticle
-import com.sako.particles.model.firework.FireworkMainParticle
+import com.sako.particles.utils.TimerIntegration
 
 class SpaceTravelView @JvmOverloads constructor(
     context: Context,
     private val attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr)  {
+) : View(context, attrs, defStyleAttr) {
 
     var starParticleCount = 150
     var starTrailCount = 4
 
     private val starParticleList = mutableListOf<SpaceTravelStarParticle>()
-    private val animator = ValueAnimator.ofFloat(0f, 1f)
+    private val timer = TimerIntegration()
 
-    val isRunning get() = animator.isRunning
+    var isRunning = false
 
 
     init {
@@ -53,7 +50,7 @@ class SpaceTravelView @JvmOverloads constructor(
         //prepare the star particles
         repeat(starParticleCount) {
             starParticleList.add(
-                SpaceTravelStarParticle.newStarInstance(w,h)
+                SpaceTravelStarParticle.newStarInstance(w, h)
             )
         }
 
@@ -67,38 +64,30 @@ class SpaceTravelView @JvmOverloads constructor(
      * This is done by running an infinite ValueAnimator and calling postInvalidateOnAnimation() on each frame
      * */
     fun startAnimation() {
-
-
-        animator.interpolator = LinearInterpolator()
-        animator.repeatCount = ValueAnimator.INFINITE
-        animator.repeatMode = ValueAnimator.RESTART
-        animator.addUpdateListener {
-            postInvalidateDelayed(16)
-        }
-
-        animator.start()
+        isRunning = true
+        invalidate()
     }
 
     /**
      * stops the animation of the particles
      * */
-    fun stopAnimation(){
+    fun stopAnimation() {
         starParticleList.forEach { it.stop() }
-        animator.cancel()
+        isRunning = false
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-
+        val deltaTime = timer.getDeltaTime()
 
 
         starParticleList.forEach {
 
 
             //draw the particle trail
-            for (i in 0 until it.history.count()){
+            for (i in 0 until it.history.count()) {
                 val radius = if (it.size > i) i.toFloat() else it.size
-                val vector= it.history[i]
+                val vector = it.history[i]
 
                 canvas.drawCircle(
                     vector.x,
@@ -110,13 +99,24 @@ class SpaceTravelView @JvmOverloads constructor(
 
 
             //draw the particle
-            canvas.drawCircle(it.x,it.y,it.size,it.paint)
+            canvas.drawCircle(it.x, it.y, it.size, it.paint)
 
             //move the particle
-            it.move(width,height, trailCount = starTrailCount)
+            it.move(width, height, trailCount = starTrailCount, deltaTime)
+
         }
 
+        if (isRunning) {
+            postInvalidateOnAnimation()
+        } else {
+            timer.reset()
+        }
+    }
 
+
+    override fun onVisibilityChanged(changedView: View, visibility: Int) {
+        super.onVisibilityChanged(changedView, visibility)
+        timer.reset()
     }
 
 }

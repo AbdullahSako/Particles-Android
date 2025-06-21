@@ -11,6 +11,7 @@ import android.view.View
 import com.sako.particles.R
 import com.sako.particles.model.Vector
 import com.sako.particles.model.firework.FireworkMainParticle
+import com.sako.particles.utils.TimerIntegration
 
 class FireworksView @JvmOverloads constructor(
     context: Context,
@@ -21,8 +22,8 @@ class FireworksView @JvmOverloads constructor(
 
     var maxFireworkCount = 10
     var mainParticleColor: Int = Color.WHITE
-    var mainParticleMinVelocity: Float = 5f
-    var mainParticleMaxVelocity: Float = 10f
+    var mainParticleMinVelocity: Float = 15f
+    var mainParticleMaxVelocity: Float = 25f
     var mainParticleSize: Float = 3f
     var mainParticleTrailCount = 5
 
@@ -38,7 +39,8 @@ class FireworksView @JvmOverloads constructor(
     var explosionSmudge: Boolean = false
 
     private val mainFireworkParticleList = mutableListOf<FireworkMainParticle>()
-    private val animator = ValueAnimator.ofFloat(0f, 1f)
+    private var timer: TimerIntegration = TimerIntegration()
+
 
     init {
         setViewAttributes()
@@ -54,9 +56,9 @@ class FireworksView @JvmOverloads constructor(
         mainParticleColor =
             arr.getColor(R.styleable.FireworksView_fireworkMainParticleColor, Color.WHITE)
         mainParticleMinVelocity =
-            arr.getFloat(R.styleable.FireworksView_fireworkMainParticleMinVelocity, 5f)
+            arr.getFloat(R.styleable.FireworksView_fireworkMainParticleMinVelocity, 15f)
         mainParticleMaxVelocity =
-            arr.getFloat(R.styleable.FireworksView_fireworkMainParticleMaxVelocity, 10f)
+            arr.getFloat(R.styleable.FireworksView_fireworkMainParticleMaxVelocity, 25f)
         mainParticleSize = arr.getFloat(R.styleable.FireworksView_fireworkMainParticleSize, 3f)
         mainParticleTrailCount =
             arr.getInt(R.styleable.FireworksView_fireworkMainParticleTrailCount, 5)
@@ -91,7 +93,22 @@ class FireworksView @JvmOverloads constructor(
         //prepare the firework particles
         repeat(maxFireworkCount) {
             mainFireworkParticleList.add(
-                createMainFireworkParticleInstance(w, h)
+                FireworkMainParticle.newFireworkInstance(
+                    w,
+                    h,
+                    maxFireworkCount,
+                    mainParticleColor,
+                    mainParticleMinVelocity,
+                    mainParticleMaxVelocity,
+                    mainParticleSize,
+                    explosionParticlesCount,
+                    explosionParticlesColor,
+                    explosionRandomColor,
+                    explosionParticleRandomColor,
+                    explosionMaxSize,
+                    explosionMinSize,
+                    explosionAreaMaxSize
+                )
             )
 
         }
@@ -100,7 +117,7 @@ class FireworksView @JvmOverloads constructor(
 
 
     override fun onDraw(canvas: Canvas) {
-
+        val deltaTime = timer.getDeltaTime()
 
         mainFireworkParticleList.forEach { mainParticle ->
 
@@ -138,7 +155,7 @@ class FireworksView @JvmOverloads constructor(
                     explosionParticle.move(
                         explosionTrailCount,
                         mainParticle.explosionFadeRectangle,
-                        explosionSmudge
+                        explosionSmudge,deltaTime
                     )
 
 
@@ -171,13 +188,13 @@ class FireworksView @JvmOverloads constructor(
 
 
                 //move main particle
-                mainParticle.move(mainParticleTrailCount)
+                mainParticle.move(mainParticleTrailCount,deltaTime)
             }
 
         }
 
 
-        invalidate()
+        postInvalidateOnAnimation()
 
     }
 
@@ -203,23 +220,9 @@ class FireworksView @JvmOverloads constructor(
 
     }
 
-    private fun createMainFireworkParticleInstance(w: Int, h: Int): FireworkMainParticle {
-        return FireworkMainParticle.newFireworkInstance(
-            width,
-            height,
-            maxFireworkCount,
-            mainParticleColor,
-            mainParticleMinVelocity,
-            mainParticleMaxVelocity,
-            mainParticleSize,
-            explosionParticlesCount,
-            explosionParticlesColor,
-            explosionRandomColor,
-            explosionParticleRandomColor,
-            explosionMaxSize,
-            explosionMinSize,
-            explosionAreaMaxSize
-        )
+    override fun onVisibilityChanged(changedView: View, visibility: Int) {
+        super.onVisibilityChanged(changedView, visibility)
+        timer.reset()
     }
 
 }
