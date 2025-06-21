@@ -1,18 +1,17 @@
 package com.sako.particlessample.ui.fragments.sparkles
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.sako.particlessample.R
-import com.sako.particlessample.databinding.FragmentSparklesSampleViewsBinding
+import com.sako.particlessample.databinding.FragmentSparklesSampleViews2Binding
 
-class SparklesSampleViewsFragment : Fragment() {
+class SparklesSampleViews2Fragment:Fragment() {
 
-    private var _binding: FragmentSparklesSampleViewsBinding? = null
+    private var _binding: FragmentSparklesSampleViews2Binding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -20,7 +19,7 @@ class SparklesSampleViewsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSparklesSampleViewsBinding.inflate(inflater, container, false)
+        _binding = FragmentSparklesSampleViews2Binding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }
@@ -28,20 +27,19 @@ class SparklesSampleViewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         setupListeners()
+
     }
 
-    private fun setupListeners() {
+    private fun setupListeners(){
 
-        binding.sparklesSampleViewsPrevFab.setOnClickListener {
+        binding.sparklesSampleViews2PrevFab.setOnClickListener {
             findNavController().navigateUp()
         }
 
-        binding.sparklesSampleViewsNextFab.setOnClickListener {
-            findNavController().navigate(R.id.action_sparklesSampleViewsFragment_to_sparklesSampleViews2Fragment)
+        binding.sparklesSampleViews2NextFab.setOnClickListener {
+            findNavController().navigate(R.id.action_sparklesSampleViews2Fragment_to_sparklesConnectFragment)
         }
-
 
     }
 
@@ -49,5 +47,6 @@ class SparklesSampleViewsFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 
 }

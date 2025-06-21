@@ -11,16 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:background="@color/black"
         android:scaleType="centerCrop"
         android:src="@drawable/img_forest"
-        app:layout_constraintBottom_toTopOf="@+id/btnSparkleView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25"
         app:layout_constraintVertical_chainStyle="packed"
         app:round="20dp" />
 
@@ -39,37 +37,6 @@
         app:layout_constraintStart_toStartOf="@+id/imageFilterView"
         app:layout_constraintTop_toTopOf="@+id/imageFilterView"
         />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/btnSparkleView"
-        app:layout_constraintEnd_toEndOf="@+id/btnSparkleView"
-        app:layout_constraintStart_toStartOf="@+id/btnSparkleView"
-        app:layout_constraintTop_toTopOf="@+id/btnSparkleView" />
-
-    <com.sako.particles.ui.sparkles.SparklesView
-        android:id="@+id/btnSparkleView"
-        android:layout_width="match_parent"
-        android:layout_height="62dp"
-        android:layout_marginHorizontal="80dp"
-        android:layout_marginTop="15dp"
-        android:elevation="-1dp"
-        app:enableTouchToAccelerate="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageFilterView"
-        app:particlesCount="200"
-        app:randomColor="true"
-        app:sparkleViewBackgroundColor="@color/black"
-        app:sparkleViewRadius="40" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

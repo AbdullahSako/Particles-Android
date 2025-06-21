@@ -62,8 +62,8 @@
         android:name="com.sako.particlessample.ui.fragments.sparkles.SparklesSampleViewsFragment"
         android:label="sparklesSampleViewsFragment" >
         <action
-            android:id="@+id/action_sparklesSampleViewsFragment_to_sparklesConnectFragment"
-            app:destination="@id/sparklesConnectFragment"
+            android:id="@+id/action_sparklesSampleViewsFragment_to_sparklesSampleViews2Fragment"
+            app:destination="@id/sparklesSampleViews2Fragment"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
@@ -89,4 +89,16 @@
         android:id="@+id/spaceTravelFragment"
         android:name="com.sako.particlessample.ui.fragments.spaceTravel.SpaceTravelFragment"
         android:label="SpaceTravelFragment" />
+    <fragment
+        android:id="@+id/sparklesSampleViews2Fragment"
+        android:name="com.sako.particlessample.ui.fragments.sparkles.SparklesSampleViews2Fragment"
+        android:label="SparklesSampleViews2Fragment" >
+        <action
+            android:id="@+id/action_sparklesSampleViews2Fragment_to_sparklesConnectFragment"
+            app:destination="@id/sparklesConnectFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
 </navigation>
