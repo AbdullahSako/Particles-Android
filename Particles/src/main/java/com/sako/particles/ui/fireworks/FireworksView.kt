@@ -203,7 +203,6 @@ class FireworksView @JvmOverloads constructor(
             val radius = if (size > i) i.toFloat() else size
             val vector= history[i]
 
-
             canvas.drawCircle(
                 vector.x,
                 vector.y,

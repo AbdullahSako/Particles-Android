@@ -37,6 +37,13 @@
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_homeFragment_to_spaceTravelFragment"
+            app:destination="@id/spaceTravelFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/sparklesMainFragment"
@@ -78,4 +85,8 @@
         android:id="@+id/snowfallFragment"
         android:name="com.sako.particlessample.ui.fragments.snowfall.SnowfallFragment"
         android:label="SnowfallFragment" />
+    <fragment
+        android:id="@+id/spaceTravelFragment"
+        android:name="com.sako.particlessample.ui.fragments.spaceTravel.SpaceTravelFragment"
+        android:label="SpaceTravelFragment" />
 </navigation>

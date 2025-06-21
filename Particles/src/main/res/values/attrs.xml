@@ -73,5 +73,10 @@
         <attr name="snowfallRandomParticleStartingPositions" format="boolean"/>
     </declare-styleable>
 
+    <declare-styleable name="SpaceTravelView">
+        <attr name="spaceTravelParticleCount" format="integer"/>
+        <attr name="spaceTravelParticleTrailCount" format="integer"/>
+    </declare-styleable>
+
 
 </resources>

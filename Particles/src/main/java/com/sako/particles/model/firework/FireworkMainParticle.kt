@@ -33,7 +33,7 @@ data class FireworkMainParticle(
         y += yVelocity
 
 
-        //limit the trail list to 10 items
+        //limit the trail list to trailMaxCount
         if (history.count() > trailMaxCount) {
             history.removeAt(0)
         }

@@ -50,6 +50,10 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_snowfallFragment)
         }
 
+        binding.spaceTravelBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_spaceTravelFragment)
+        }
+
     }
 
     override fun onDestroyView() {

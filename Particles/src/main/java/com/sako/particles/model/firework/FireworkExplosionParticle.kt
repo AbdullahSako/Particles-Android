@@ -55,7 +55,6 @@ data class FireworkExplosionParticle(
 
 
         //add the current position to the history
-
         if(enableSmudge) {
 
             if (historyCount < trailLength) {
@@ -63,8 +62,6 @@ data class FireworkExplosionParticle(
             }
 
         }else{
-
-            // Add or reuse history vector (circular buffer)
             history.add(Vector(x, y))
 
              if(history.size > trailLength) {

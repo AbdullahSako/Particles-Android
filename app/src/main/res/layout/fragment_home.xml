@@ -1,56 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#121212">
 
-    <Button
-        android:id="@+id/sparklesBtn"
-        android:layout_width="wrap_content"
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sparkles"
-        app:layout_constraintBottom_toTopOf="@+id/particleExplosionBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <Button
-        android:id="@+id/particleExplosionBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Particle explosion"
-        app:layout_constraintBottom_toTopOf="@+id/fireworksBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sparklesBtn" />
-
-    <Button
-        android:id="@+id/fireworksBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Fireworks"
-        app:layout_constraintBottom_toTopOf="@+id/snowfallBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/particleExplosionBtn" />
-
-    <Button
-        android:id="@+id/snowfallBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Snowfall"
+        android:layout_marginHorizontal="40dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:strokeWidth="0.5dp"
+        app:strokeColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fireworksBtn" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/sparklesBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@android:color/transparent"
+                android:text="Sparkles"
+                android:textColor="@color/white" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/white" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/particleExplosionBtn"
+                android:text="Particle explosion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@android:color/transparent"
+                android:textColor="@color/white" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/white" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/fireworksBtn"
+                android:text="Fireworks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@android:color/transparent"
+                android:textColor="@color/white" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/white" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/snowfallBtn"
+                android:text="Snowfall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@android:color/transparent"
+                android:textColor="@color/white" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/white" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/spaceTravelBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@android:color/transparent"
+                android:text="Space travel"
+                android:textColor="@color/white" />
+
+
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
