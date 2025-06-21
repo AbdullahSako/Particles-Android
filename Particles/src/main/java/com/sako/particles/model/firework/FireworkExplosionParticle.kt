@@ -13,7 +13,7 @@ data class FireworkExplosionParticle(
     var y: Float,
     var xVelocity: Float,
     var yVelocity: Float,
-    val maxVelocity: Float,
+    var maxVelocity: Float,
     var acceleration: Float,
     var size: Float,
     val history: MutableList<Vector>,

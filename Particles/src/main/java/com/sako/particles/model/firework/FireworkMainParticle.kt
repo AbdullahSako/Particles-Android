@@ -12,10 +12,10 @@ data class FireworkMainParticle(
     var x: Float,
     var y: Float,
     var yVelocity: Float,
-    val explosionYCoordinate: Float,
+    var explosionYCoordinate: Float,
     val history: MutableList<Vector>,
     val explosionParticleList: MutableList<FireworkExplosionParticle>,
-    val explosionFadeRectangle: Rect,
+    var explosionFadeRectangle: Rect,
     val size: Float,
     val paint: Paint,
     var isExploded: Boolean = false
@@ -43,6 +43,72 @@ data class FireworkMainParticle(
         if (y < explosionYCoordinate) {
             isExploded = true
         }
+
+    }
+
+
+    /**
+     * Reset particle parameters and position to a new random position
+     * */
+    fun resetParticle(
+        w: Int, h: Int, mainParticleCount: Int,
+         explosionAreaMaxSize: Int = -1
+    ) {
+
+        //calculate explosion area size if not specified
+        var explosionAreaSize =
+            if (explosionAreaMaxSize == -1) (sqrt((w * h) / 2 / mainParticleCount.toDouble()).toInt()) else explosionAreaMaxSize
+
+
+        //add slight variation for each particle explosionAreaSize, as it effects velocity, this should make the explosion shape unique
+        explosionAreaSize =
+            Random.nextInt(explosionAreaSize - 100, explosionAreaSize + 100).coerceAtMost(400)
+
+        //calculate explosion max velocity based on explosion area size
+        val explosionMaxVelocity =
+            (explosionAreaSize * explosionAreaSize) / ((explosionAreaSize + explosionAreaSize) * 75).toFloat()
+
+        //generate random x coordinate
+        val x = Random.nextDouble(0.0, w.toDouble()).toFloat()
+
+        //main particle explosion y coordinate
+        val explosionYCoordinate = Random.nextDouble(h * 0.05, h * 0.5).toFloat()
+
+
+        //This rectangle is used to fade the explosion particles when they leave the rectangle coordinates
+        val explosionFadeLimitRect = Rect(
+            x.toInt() - explosionAreaSize,
+            explosionYCoordinate.toInt() - explosionAreaSize,
+            x.toInt() + explosionAreaSize,
+            explosionYCoordinate.toInt() + explosionAreaSize
+        )
+
+        this.x = x
+        this.y = Random.nextDouble(h.toDouble(), h * 1.5).toFloat()
+        this.explosionYCoordinate = explosionYCoordinate
+        this.history.clear()
+        this.explosionFadeRectangle = explosionFadeLimitRect
+        this.isExploded = false
+
+        this.explosionParticleList.forEach {
+            it.x = x
+            it.y = explosionYCoordinate
+            it.xVelocity = Random.nextDouble(
+                explosionMaxVelocity * -1.0,
+                explosionMaxVelocity.toDouble()
+            ).toFloat()
+            it.yVelocity = Random.nextDouble(
+                explosionMaxVelocity * -1.0,
+                explosionMaxVelocity.toDouble()
+            ).toFloat()
+            it.maxVelocity = explosionMaxVelocity
+            it.acceleration = Random.nextDouble(1.15, 1.2).toFloat()
+            it.history.clear()
+            it.paint.alpha = 255
+            it.lifeSpan = 100
+        }
+
+
 
     }
 

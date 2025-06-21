@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
         android:elevation="1dp"
-        app:cardElevation="1dp"
         app:cardBackgroundColor="@android:color/transparent"
         app:strokeWidth="0.5dp"
         app:strokeColor="@color/white"
