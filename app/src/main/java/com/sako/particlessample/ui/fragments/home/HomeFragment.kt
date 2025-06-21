@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.sako.particles.utils.Tools.logd
 import com.sako.particlessample.R
 import com.sako.particlessample.databinding.FragmentHomeBinding
+import com.sako.particlessample.enums.RandomViewEnum
 
 class HomeFragment : Fragment() {
 
@@ -29,10 +29,11 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupListeners()
+        showRandomView()
 
     }
 
-    private fun setupListeners(){
+    private fun setupListeners() {
 
         binding.sparklesBtn.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_sparklesMainFragment)
@@ -52,6 +53,32 @@ class HomeFragment : Fragment() {
 
         binding.spaceTravelBtn.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_spaceTravelFragment)
+        }
+
+    }
+
+
+    private fun showRandomView() {
+        val randomViewEnum = RandomViewEnum.entries.random()
+
+        when (randomViewEnum) {
+            RandomViewEnum.SPARKLES -> {
+                binding.homeSparklesView.visibility = View.VISIBLE
+            }
+
+            RandomViewEnum.FIREWORKS -> {
+                binding.homeFireworksView.visibility = View.VISIBLE
+            }
+
+            RandomViewEnum.SNOWFALL -> {
+                binding.homeSnowfallView.visibility = View.VISIBLE
+            }
+
+            RandomViewEnum.SPACE_TRAVEL -> {
+                binding.homeSpaceTravelView.startAnimation()
+                binding.homeSpaceTravelView.visibility = View.VISIBLE
+            }
+
         }
 
     }

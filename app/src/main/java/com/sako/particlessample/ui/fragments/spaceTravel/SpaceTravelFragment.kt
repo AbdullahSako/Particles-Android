@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.sako.particlessample.databinding.FragmentSpaceTravelBinding
+import com.sako.particlessample.enums.RandomViewEnum
 
 class SpaceTravelFragment: Fragment() {
 
@@ -44,6 +45,8 @@ class SpaceTravelFragment: Fragment() {
 
 
     }
+
+
 
 
     override fun onDestroyView() {

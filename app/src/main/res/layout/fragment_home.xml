@@ -9,6 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
+        android:elevation="1dp"
+        app:cardElevation="1dp"
         app:cardBackgroundColor="@android:color/transparent"
         app:strokeWidth="0.5dp"
         app:strokeColor="@color/white"
@@ -90,5 +92,37 @@
 
     </com.google.android.material.card.MaterialCardView>
 
+    <com.sako.particles.ui.sparkles.SparklesView
+        android:id="@+id/homeSparklesView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:particlesColor="@color/white"
+        app:enableTouchToAccelerate="true"
+        android:visibility="gone"
+        />
+
+    <com.sako.particles.ui.fireworks.FireworksView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/homeFireworksView"
+        android:visibility="gone"
+        app:fireworkCount="10"
+        />
+
+    <com.sako.particles.ui.snowfall.SnowfallView
+        android:id="@+id/homeSnowfallView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:snowfallParticleCount="400"
+        android:visibility="gone"
+        />
+
+
+    <com.sako.particles.ui.spaceTravel.SpaceTravelView
+        android:visibility="gone"
+        android:id="@+id/homeSpaceTravelView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:spaceTravelParticleCount="150"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
