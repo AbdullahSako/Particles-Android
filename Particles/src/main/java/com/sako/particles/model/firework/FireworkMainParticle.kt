@@ -25,8 +25,6 @@ data class FireworkMainParticle(
 
     fun move(trailMaxCount: Int,deltaTime:Float) {
 
-        val frameRate = if (deltaTime > 0) 1f / deltaTime else 60f
-
         //add the current position to the history
         history.add(Vector(x, y))
 

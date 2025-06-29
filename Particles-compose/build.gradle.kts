@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.sako.particles_compose"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 24
