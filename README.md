@@ -37,14 +37,14 @@ Add to your dependencies:
 Groovy
 ```groovy
 dependencies {
-    implementation ''
+    implementation 'com.github.AbdullahSako:Particles-Android:1.0'
 }
 ```
 
 Kotlin
 ```kotlin
 dependencies {
-    implementation ("")
+    implementation ("com.github.AbdullahSako:Particles-Android:1.0")
 }
 ```
 
