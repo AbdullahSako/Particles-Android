@@ -33,7 +33,7 @@ class SparklesView @JvmOverloads constructor(
 
 
     //-----attributes-----
-    var particlesCount = 150 //total number of particles
+    var particlesCount = 100 //total number of particles
     var particlesColor = Color.GREEN
     var randomColor = false // flag to color each particle randomly
     var connectLineColor = Color.RED //the color of the lines that connect the particles
@@ -89,7 +89,7 @@ class SparklesView @JvmOverloads constructor(
         enableLeftFadingEdge = arr.getBoolean(R.styleable.SparklesView_enableLeftFadingEdge, false)
         enableRightFadingEdge = arr.getBoolean(R.styleable.SparklesView_enableRightFadingEdge, false)
         enableTouchToAccelerate =
-            arr.getBoolean(R.styleable.SparklesView_enableTouchToAccelerate, false)
+            arr.getBoolean(R.styleable.SparklesView_enableTouchToAccelerate, true)
         enableParticleConnect =
             arr.getBoolean(R.styleable.SparklesView_enableParticleConnect, false)
         maxParticleConnectDistance =

@@ -60,8 +60,7 @@ class SpaceTravelView @JvmOverloads constructor(
 
 
     /**
-     * Starts the animation of the particles,
-     * This is done by running an infinite ValueAnimator and calling postInvalidateOnAnimation() on each frame
+     * Starts the animation of the particles
      * */
     fun startAnimation() {
         isRunning = true
