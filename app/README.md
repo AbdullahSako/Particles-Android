@@ -9,5 +9,6 @@
 <img src="https://raw.githubusercontent.com/AbdullahSako/Particles-Android/master/gifs/fireworks.gif" width="24%"/>
 <img src="https://raw.githubusercontent.com/AbdullahSako/Particles-Android/master/gifs/snowfall.gif" width="24%"/>
 <img src="https://raw.githubusercontent.com/AbdullahSako/Particles-Android/master/gifs/spacetravel.gif" width="24%"/>
+<img src="https://raw.githubusercontent.com/AbdullahSako/Particles-Android/master/gifs/particleExplosion.gif" width="24%"/>
 </div>
 
