@@ -165,6 +165,27 @@ Call startAnimation() to start the animation of the view
  binding.spaceTravelView.startAnimation()
 ```
 
+### ParticleExplosionView
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/AbdullahSako/Particles-Android/master/gifs/particleExplosion.gif" width="250"/>
+</div>
+
+```xml
+    <com.sako.particles.ui.particleExplosion.ParticleExplosionView
+        android:id="@+id/particleExplotionFullScreenView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+```
+
+- `particlesCount` - **Int (default: 150)**: The number of particles in an explosion. 
+- `particlesColor` - **color (default: Red)**: The color of particles in an explosion. 
+- `randomColor` - **boolean (default: false)**: color each one of the particles in an explosion with a random color. 
+- `maxSize` - **float (default: 8)**: The maximum size of an explosion particle, size calculated by random(`minSize` to `maxSize`). 
+- `minSize` - **float (default: 2)**: The minimum size of an explosion particle, size calculated by random(`minSize` to `maxSize`). 
+- `trailLength` - **Int (default: 10)**: The length of a firework explosion particle trail. 
+
+
 ## License
 
 Particles-Android is released under the ISC license. See [LICENSE](https://github.com/AbdullahSako/Particles-Android/blob/master/LICENSE) for details.
